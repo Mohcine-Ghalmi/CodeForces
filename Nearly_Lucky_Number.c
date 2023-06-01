@@ -1,29 +1,34 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-#include <string.h>
 
-int main()
-{
-    long long int nbr;
+int is_lucky(long long n) {
+  while (n > 0) {
+    if (n % 10 != 4 && n % 10 != 7) {
+      return 0;
+    }
+    n /= 10;
+  }
+  return 1;
+}
 
-    scanf("%lld", &nbr);
-    if (nbr % 7 == 0 || nbr % 4 == 0)
-    {
-        printf("NO");
-        return 0;
+int is_nearly_lucky(long long n) {
+  int count = 0;
+  while (n > 0) {
+    if (n % 10 == 4 || n % 10 == 7) {
+      count++;
     }
-    while(nbr)
-    {
-        if (nbr % 10 == 4 || nbr % 10 == 7)
-            nbr = nbr / 10;
-        else
-        {
-            printf("NO");
-            return 0;
-        }
-    }
-    printf("YES");
-    return 0;
+    n /= 10;
+  }
+  return is_lucky(count);
+}
+
+int main() {
+  long long n;
+  scanf("%I64d", &n);
+
+  if (is_nearly_lucky(n)) {
+    printf("YES\n");
+  } else {
+    printf("NO\n");
+  }
+  return 0;
 }
